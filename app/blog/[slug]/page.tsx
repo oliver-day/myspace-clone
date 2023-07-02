@@ -7,7 +7,8 @@ interface Post {
 }
 
 export async function generateStaticParams() {
-  const posts: Post[] = await fetch('http://localhost:3000/api/content').then((res) => res.json());
+  const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `${process.env.VERCEL_URL}`
+  const posts: Post[] = await fetch(`${url}/api/content`).then((res) => res.json());
 
   return posts.map((post) => ({
     params: { slug: post.slug }
@@ -20,7 +21,8 @@ interface Props {
 
 export default async function BlogPostPage({ params }: Props) {
   // deduped
-  const posts: Post[] = await fetch('http://localhost:3000/api/content').then((res) => res.json());
+  const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `${process.env.VERCEL_URL}`
+  const posts: Post[] = await fetch(`${url}/api/content`).then((res) => res.json());
   const post = posts.find((post) => post.slug === params.slug)!;
 
   return (
