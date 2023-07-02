@@ -1,7 +1,17 @@
+export const revalidate = 1200; // not necessary, but makes ISR explicit
+
 interface Post {
   title: string;
   content: string;
   slug: string;
+}
+
+export async function generateStaticParams() {
+  const posts: Post[] = await fetch('http://localhost:3000/api/content').then((res) => res.json());
+
+  return posts.map((post) => ({
+    params: { slug: post.slug }
+  }));
 }
 
 interface Props {
