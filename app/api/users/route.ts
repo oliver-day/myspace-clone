@@ -1,0 +1,9 @@
+import { prisma } from '@/lib/prsima';
+import { NextResponse } from 'next/server';
+
+export async function GET(request: Request) {
+  const users = await prisma.user.findMany();
+  console.log('%c[GET users]', 'color: #0bf;', 'users:', users);
+
+  return NextResponse.json(users);
+}
