@@ -20,7 +20,7 @@ export default function UserCard({ id, name, age, image }: Props) {
         <h3>
           <Link href={`/users/${id}`}>{name}</Link>
         </h3>
-        <p>Age: {age}</p>
+        <p>Age: {age ?? 'unknown'}</p>
       </div>
     </div>
   );
