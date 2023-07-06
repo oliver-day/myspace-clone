@@ -6,6 +6,7 @@ interface Post {
   slug: string;
 }
 
+// TODO: Update this to be compatible with vercel at build time
 export async function generateStaticParams() {
   const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   const posts: Post[] = await fetch(`${url}/api/content`).then((res) => res.json());
